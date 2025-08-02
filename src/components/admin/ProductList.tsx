@@ -14,37 +14,49 @@ export const ProductList = () => {
   };
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Manage Products</h2>
+    <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 className="text-3xl font-extrabold text-gray-900 mb-8">Manage Products</h2>
+
       {products.length === 0 ? (
-        <Card>
-          <CardContent className="pt-6">
-            <p className="text-center text-muted-foreground">No products added yet.</p>
+        <Card className="p-8 text-center bg-gray-50 border border-gray-200 rounded-lg shadow-md">
+          <CardContent>
+            <p className="text-gray-600 text-lg">No products added yet.</p>
           </CardContent>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
-            <Card key={product.id}>
-              <CardHeader>
-                <CardTitle className="text-lg">{product.name}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <img 
-                  src={product.image} 
+            <Card
+              key={product.id}
+              className="flex flex-col shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            >
+              <CardHeader className="p-0">
+                <img
+                  src={product.image}
                   alt={product.name}
-                  className="w-full h-48 object-cover rounded mb-4"
+                  className="w-full h-48 object-cover"
                 />
-                <p className="text-sm text-muted-foreground mb-2">{product.description}</p>
-                <div className="space-y-1 text-sm">
-                  <p><strong>Price:</strong> ${product.price}</p>
-                  <p><strong>Category:</strong> {product.category}</p>
-                  <p><strong>Stock:</strong> {product.stock}</p>
+              </CardHeader>
+              <CardContent className="flex flex-col flex-grow p-6">
+                <CardTitle className="text-xl font-semibold text-gray-900 mb-2">
+                  {product.name}
+                </CardTitle>
+                <p className="text-gray-700 text-sm flex-grow">{product.description}</p>
+                <div className="mt-4 space-y-1 text-sm text-gray-800">
+                  <p>
+                    <span className="font-semibold">Price:</span> ${product.price.toFixed(2)}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Category:</span> {product.category}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Stock:</span> {product.stock}
+                  </p>
                 </div>
-                <Button 
-                  variant="destructive" 
-                  size="sm" 
-                  className="mt-4 w-full"
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  className="mt-6 w-full"
                   onClick={() => handleDelete(product.id, product.name)}
                 >
                   Delete Product
@@ -54,6 +66,6 @@ export const ProductList = () => {
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 };
